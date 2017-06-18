@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+import sys
+from subprocess import call
+
+PATH="./"
+
+if sys.argv[1] == "heroku":
+
+	try:
+		sys.argv[2]
+
+		call([PATH+"heroku.sh"])
+
+	except IndexError:
+
+		call(["heroku", "apps:info"])
+
+elif sys.argv[1] == "run":
+
+	call([PATH+"run.sh"])
+
+elif sys.argv[1] == "new":
+
+	try:
+
+		call([PATH+"new.sh", sys.argv[2]])
+
+	except IndexError:
+
+		print("Usage: bottler new [app_name]")
+
+elif sys.argv[1] == "help":
+
+	print("usage: bottler [command] [args]")
+	print("\tnew [name]    -> create a new bottler project")
+	print("\theroku        -> display Heroku deployment info")
+	print("\theroku deploy -> deploy your project to Heroku")
+	print("\trun           -> run your project")
+
+else:
+
+	print("'{}' is not a valid command. Type 'bottler help' for a list of commands.")
